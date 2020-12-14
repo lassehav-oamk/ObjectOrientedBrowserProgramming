@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <style>
+      .demo {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Example HTML for modifying the DOM</h1>
+    <div>
+      <p id="ExampleID" class="demo">Hello world</p>
+      <p class="demo" name="testName">Some content of paragraph</p>
+      <p class="demo" name="testName">Another content of paragraph</p>
+      <h2>textContent target</h2>
+      <div id="textContentTarget">
+        <div>A</div>
+        <div>B</div>
+      </div>
+      <h2>innerHTML target</h2>
+      <div id="innerHTMLTarget">
+        <div>C</div>
+        <div>D</div>
+      </div>
+    </div>
+    <div>
+      <button onClick="readTextContents()">Read and update with textContents</button>
+      <button onClick="readInnerHTML()">Read and update with innerHTML</button>
+    </div>
+    <script>
+      function readTextContents() {
+        let target = document.querySelector('#textContentTarget');
+        console.log(target.textContent);
+        target.textContent = "<div style='color: red;'>Hellou!</div>";
+      }
+
+      function readInnerHTML() {
+        let target = document.querySelector('#innerHTMLTarget');
+        console.log(target.innerHTML);
+        target.innerHTML = "<div style='color: red;'>Hellou!</div>";
+      }
+
+    </script>
+  </body>
+</html>

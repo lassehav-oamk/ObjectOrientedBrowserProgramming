@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+
+      tr.active {
+        font-weight: bold;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>HTML Table</h2>
+
+    <table id="exerciseTable">
+      <tr>
+        <th>Company</th>
+        <th>Contact</th>
+        <th>Country</th>
+      </tr>
+      <tr>
+        <td class="company">Alfreds Futterkiste</td>
+        <td>Maria Anders</td>
+        <td>Germany</td>
+      </tr>
+      <tr>
+        <td class="company">Centro comercial Moctezuma</td>
+        <td>Francisco Chang</td>
+        <td>Mexico</td>
+      </tr>
+      <tr>
+        <td class="company">Ernst Handel</td>
+        <td>Roland Mendel</td>
+        <td>Austria</td>
+      </tr>
+      <tr>
+        <td class="company">Island Trading</td>
+        <td>Helen Bennett</td>
+        <td>UK</td>
+      </tr>
+      <tr class="active">
+        <td class="company">Laughing Bacchus Winecellars</td>
+        <td>Yoshi Tannamuri</td>
+        <td>Canada</td>
+      </tr>
+      <tr>
+        <td class="company">Magazzini Alimentari Riuniti</td>
+        <td>Giovanni Rovelli</td>
+        <td>Italy</td>
+      </tr>
+    </table>
+
+    <!-- Task1: Write code which prints to the console the value of id attribute of the table element -->
+    <script>
+      let element = document.getElementById('exerciseTable');
+      if(element != null) {
+        console.log('Task1: ' + element.id);
+      }
+    </script>
+
+    <!-- Task2: Write code which prints all the company names in the above table to the console -->
+    <script>
+      let companyElements = document.querySelectorAll('.company');
+      console.log('Task2: \n');
+      for(let i = 0; i < companyElements.length; i++) {
+        console.log(companyElements[i].innerText);
+      }
+    </script>
+
+    <!-- Task3: Write code which prints to console the value of the country cell of the row with "active" class -->
+    <script>
+      let countryElement = document.querySelector('.active > td:nth-child(3)');
+      console.log('Task3: ' + countryElement.innerText);
+    </script>
+  </body>
+</html>
