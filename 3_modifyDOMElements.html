@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <style>
+      .demo {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Example HTML for modifying the DOM</h1>
+
+    <div>
+      <p id="ExampleID" class="demo">Hello world</p>
+      <p class="demo" name="testName">Some content of paragraph</p>
+      <p class="demo" name="testName">Another content of paragraph</p>
+      <div id="buttonTarget"></div>
+    </div>
+    <div>
+      <button onClick="sayHello()">Say Hello</button>
+    </div>
+    <div>
+      <button onClick="createNew()">Create new element</button>
+    </div>
+
+
+
+    <script>
+      function sayHello() {
+        let target = document.querySelector('#buttonTarget');
+        target.textContent = "Hellou!";
+      }
+
+
+
+    </script>
+  </body>
+</html>

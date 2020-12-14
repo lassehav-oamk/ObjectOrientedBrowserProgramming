@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <style>
+      .demo {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Example HTML for DOM Selectors</h1>
+
+    <div>
+      <p id="ExampleID" class="demo">Hello world</p>
+      <p class="demo" name="testName">Some content of paragraph</p>
+      <p class="demo" name="testName">Another content of paragraph</p>
+      <img src="https://www.oamk.fi/images/Logot/Suomi-toimisto-tulostettava-png-rgb/Toimistokayttoon_Suomeksi-06.png">
+    </div>
+
+    <script>
+      // demonstration of selecting element based on id
+      let idTarget = document.getElementById('ExampleID');
+      console.log(idTarget);
+      debugger;
+
+      // demonstration of selecting element based on selecting elements based on name
+      let nameTargets = document.getElementsByName('testName');
+      console.log(nameTargets);
+      console.log('nameTargets count: ' + nameTargets.length);
+      debugger;
+
+      let tagNameTargets = document.getElementsByTagName('div');
+      console.log(tagNameTargets);
+      console.log('tagNameTargets count: ' + tagNameTargets.length);
+      debugger;
+
+      let classNameTargets = document.getElementsByClassName('demo');
+      console.log(classNameTargets);
+      console.log('classNameTargets count: ' + classNameTargets.length);
+      debugger;
+
+      // returns the first element to match
+      let queryTarget = document.querySelector('.demo');
+      console.log(queryTarget);
+      console.log('queryTarget count: ' + queryTarget.length);
+      debugger;
+
+      // return all elements to match
+      let queryTargets = document.querySelectorAll('.demo');
+      console.log(queryTargets);
+      console.log('queryTargets count: ' + queryTargets.length);
+      debugger;
+
+    </script>
+  </body>
+</html>
