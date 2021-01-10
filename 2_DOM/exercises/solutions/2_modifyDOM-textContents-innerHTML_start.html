@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <style>
+      .demo {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Exercise template for modifying the DOM</h1>
+    <div>
+      <p id="ExampleID" class="demo">Hello world</p>
+      <p class="demo" name="testName">Some content of paragraph</p>
+      <p class="demo" name="testName">Another content of paragraph</p>
+    </div>
+    <div>
+      <b>Task 1</b>
+      Your task is to write code to replace the "Hello world" text above in the paragraph with text "I can modify text".
+      Create a button here below to activate your code when you click on it.
+    </div>
+    <div>
+      <b>Task 2</b>
+      Write code which replaces the children of all divs with text "I have replaced everything".
+    </div>
+    <p>
+      <button onClick="solution()">Task 1</button>
+      <button onClick="solution2()">Task 2</button>
+    </p>
+
+    <script>
+      function solution() {
+        let target = document.getElementById("ExampleID");
+        target.innerHTML = "I can modify text";
+      }
+
+      function solution2() {
+        let targets = document.querySelectorAll('div');
+        targets.forEach(element => element.innerHTML = "I have replaced everything");
+      }
+    </script>
+  </body>
+</html>
