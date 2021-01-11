@@ -22,9 +22,15 @@
       <b>Task 2</b>
       Write code which replaces the children of all divs with text "I have replaced everything".
     </div>
+    <div>
+      <b>Task 3</b>
+      Write code, which inserts into a single div containing an image (https://www.w3.org/html/logo/img/html5-display.png) and text "AN HTML5 LOGO". That content should be laid out vertically stacked and centered on the page.
+    </div>
+    <div id="htmlTarget"></div>
     <p>
       <button onClick="solution()">Task 1</button>
       <button onClick="solution2()">Task 2</button>
+      <button onClick="solution3()">Task 3</button>
     </p>
 
     <script>
@@ -36,6 +42,16 @@
       function solution2() {
         let targets = document.querySelectorAll('div');
         targets.forEach(element => element.innerHTML = "I have replaced everything");
+      }
+
+      function solution3() {
+        let target = document.querySelector('div#htmlTarget');
+        target.innerHTML = `
+          <div style="text-align:center;">
+            <img src="https://www.w3.org/html/logo/img/html5-display.png">
+            <h1>AN HTML5 LOGO</h1>
+          </div>
+        `;
       }
     </script>
   </body>
