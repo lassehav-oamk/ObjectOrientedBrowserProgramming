@@ -65,9 +65,23 @@
     </table>
 
     <!-- Task1: Write code which prints to the console the value of id attribute of the table element -->
-
+    <script>
+      let table = document.getElementById('exerciseTable');
+      console.log("Id of table is " + table.id);
+    </script>
     <!-- Task2: Write code which prints all the company names in the above table to the console -->
-
+    <script>
+      let names = document.getElementsByClassName("company");
+        for (let i = 0; i < names.length; i ++) {
+          console.log(names[i].textContent);
+        }
+    </script>
     <!-- Task3: Write code which prints to console the value of the country cell of the row with "active" class -->
+    <script>
+      let row = document.querySelector('.active');
+      let targetElement = row.children[2];
+      console.log("Active country is " + targetElement.innerText);
+
+    </script>
   </body>
 </html>

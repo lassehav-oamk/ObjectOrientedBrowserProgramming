@@ -1,0 +1,33 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Example HTML for new DOM element insertions</h1>
+
+    <ol>
+      <li id="originalFirst">First</li>
+      <li id="originalSecond">Second</li>
+    </ol>
+
+    <script>
+      let list = document.querySelector('ol');
+
+      let example1 = document.createElement('li');
+      example1.append('Example1');
+      list.append(example1);
+
+      let example2 = document.createElement('li');
+      example2.append('Example2');
+      list.prepend(example2);
+
+      let example3 = document.createElement('li');
+      example3.append('Example3');
+      document.querySelector('#originalFirst').before(example3)
+
+      let example4 = document.createElement('li');
+      example4.append('Example4');
+      document.querySelector('#originalFirst').after(example4)
+    </script>
+
+  </body>
+</html>
