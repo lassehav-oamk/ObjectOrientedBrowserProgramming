@@ -1,0 +1,34 @@
+<html>
+  <head>
+
+
+  </head>
+  <body>
+    <h1>Example for reading text input values</h1>
+
+
+    <div>
+      <h2>Multiplication</h2>
+      <div>
+        Term A <input type="number" id="a">
+      </div>
+      <div>
+        Term B <input type="number" id="b">
+      </div>
+      <div>
+        Result <input id="result" type="number">
+      <div>
+      <button id="calculate" onClick="calculate()">Calculate</button>
+    </div>
+
+    <script>
+      function calculate() {
+        const a = document.querySelector('#a');
+        const b = document.querySelector('#b');
+        const result = document.querySelector('#result');
+
+        result.value = a.value * b.value;
+      }
+    </script>
+  </body>
+</html>

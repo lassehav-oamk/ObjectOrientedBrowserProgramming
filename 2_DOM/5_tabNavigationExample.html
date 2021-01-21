@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <style>
+      .tab-nav-header {
+        display: flex;
+        border: 1px solid black;
+        margin: 20px;
+        font-size: 18px;
+      }
+
+      .tab-nav-header > .tab {
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        cursor: pointer;
+      }
+
+      .tab-nav-header > .tab.active {
+        background-color: gray;
+        color: white;
+      }
+
+      .tab-nav-content >.tab-content {
+        display: none;
+      }
+
+      .tab-nav-content >.tab-content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Example for tab navigation</h1>
+
+    <div class="tab-navigation">
+      <div class="tab-nav-header">
+        <div class="tab active" data-tab-target="tab1">Content 1</div>
+        <div class="tab" data-tab-target="tab2">Content 2</div>
+        <div class="tab" data-tab-target="tab3">Content 3</div>
+      </div>
+      <div class="tab-nav-content">
+        <div class="tab-content active" data-tab-content="tab1">
+          <h1>Content 1</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet viverra velit. In vel ultricies lectus, at pharetra metus. Nunc hendrerit tortor porta scelerisque accumsan. Mauris sed justo aliquet, luctus dui sit amet, vestibulum est. Phasellus nec nisi justo. Cras eget libero mauris. Vestibulum quis ex in urna blandit imperdiet. Aenean velit ex, ullamcorper quis consequat ut, ullamcorper nec risus. Ut vel laoreet lorem. Quisque et sem eget lectus venenatis ultricies.</p>
+        </div>
+        <div class="tab-content" data-tab-content="tab2">
+          <h1>Content 2</h1>
+          <p>Praesent nec accumsan erat. Vestibulum non dui ultricies, elementum orci nec, lobortis tellus. Fusce eget nisi turpis. Sed aliquet pretium nibh, finibus rutrum felis pulvinar nec. Nunc libero ligula, porttitor id nunc at, placerat suscipit lacus. Phasellus aliquet nisl et arcu suscipit, ut molestie lectus vehicula. Morbi diam sem, vestibulum id eros ac, consectetur pellentesque leo. Sed luctus in nibh eget eleifend. Duis a tellus posuere, auctor enim id, feugiat nibh. Nam et ligula eleifend, congue tellus ac, porttitor ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc et lacinia metus.</p>
+        </div>
+        <div class="tab-content" data-tab-content="tab3">
+          <h1>Content 3</h1>
+          <p>Morbi maximus semper lacus, nec iaculis felis varius sit amet. In fringilla tellus at nisl consequat ultrices. Sed rhoncus mattis ligula, in tincidunt enim hendrerit dapibus. Curabitur eget mi auctor, ultrices nibh sed, suscipit velit. Curabitur sit amet orci nec magna sagittis fringilla et vel ante. Phasellus cursus at ligula in pretium. Vestibulum nisl felis, ultrices et lectus ac, placerat tincidunt turpis. Vestibulum molestie nulla vel ligula tincidunt sodales. Morbi feugiat tempus pretium. Cras id facilisis ante. Nunc aliquam metus enim, sed lobortis lacus ultricies eu. Ut at tempor justo. Pellentesque tincidunt sapien in tellus fringilla, quis ultricies erat auctor. Donec lectus risus, scelerisque eget euismod quis, aliquet eget mi. Vivamus ullamcorper bibendum arcu sed bibendum. Ut placerat tincidunt efficitur.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      function tabHeaderElementClickHandler(clickedElement) {
+        const targetContentName = clickedElement.getAttribute('data-tab-target');
+        const currentActiveElements = document.querySelectorAll('.tab-navigation .active');
+        for (let i = 0; i < currentActiveElements.length; i++) {
+          currentActiveElements[i].classList.remove('active');
+        }
+
+        clickedElement.classList.add('active');
+        const targetContentElement = document.querySelector('[data-tab-content="' + targetContentName + '"]');
+        targetContentElement.classList.add('active');
+      }
+
+      let tabHeaderItems = document.querySelectorAll('.tab-nav-header > .tab');
+      for(let i = 0; i < tabHeaderItems.length; i++) {
+        tabHeaderItems[i].onclick = () => tabHeaderElementClickHandler(tabHeaderItems[i]);
+      }
+    </script>
+  </body>
+</html>
