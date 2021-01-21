@@ -16,6 +16,12 @@
         Term B <input type="number" id="b">
       </div>
       <div>
+        Operation type<br>
+        <input type="radio" name="operation" value="mult"> *<br>
+        <input type="radio" name="operation" value="div"> / <br>
+        <input type="radio" name="operation" value="sum"> +
+      </div>
+      <div>
         Result <input id="result" type="number">
       <div>
       <button id="calculate" onClick="calculate()">Calculate</button>
@@ -24,14 +30,37 @@
 
     <script>
       function calculate() {
-        const a = document.querySelector('#a');
-        const b = document.querySelector('#b');
-        const result = document.querySelector('#result');
+        const aElement = document.querySelector('#a');
+        const bElement = document.querySelector('#b');
+        const resultElement = document.querySelector('#result');
 
-        result.value = a.value * b.value;
+        const operation = document.querySelector('input[name="operation"]:checked').value;
+        let result = 0;
+        let operandStr = "";
+        const a = parseInt(aElement.value);
+        const b = parseInt(bElement.value);
+        switch (operation) {
+          case 'mult':
+            result = a * b;
+            operandStr = "*";
+            break;
+          case 'div':
+            result = a / b;
+            operandStr = "/";
+            break;
+          case 'sum':
+            result = a + b;
+            operandStr = "+";
+            break;
+          default:
+            alert('Unsupported operation');
+            return;
+        }
+
+        resultElement.value = result;
         const log = document.querySelector('#log');
         const logElement = document.createElement('div');
-        logElement.append(`${a.value} * ${b.value} = ${result.value}`);
+        logElement.append(`${a} ${operandStr} ${b} = ${result}`);
         log.append(logElement);
       }
     </script>
