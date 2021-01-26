@@ -1,0 +1,91 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <div>
+      <h2>Compound interest</h2>
+      <div>
+        <pre>
+      Your task is to create an tool to calculate investment returns with compound interest.
+      The tool should have input fields for
+      •	initial investment
+      •	monthly contributionElement
+      •	length of time in years
+      •	estimated interest rate in percent
+      As a result the tool should show how your invesment value grows over the years. Use a table for this. Assume interest is added annually.
+      In the result table show the yearly investment value with interest and without interest (total contributionElement or savings).
+        </pre>
+      </div>
+      <div>
+        <div>
+          Initial investment <input type="number" id="initial">
+        </div>
+        <div>
+          Monthly contributionElement <input type="number" id="monthlySavings">
+        </div>
+        <div>
+          Investment time in years<input type="number" id="years">
+        </div>
+        <div>
+          Estimated interest in percent <input type="number" id="interest">
+        </div>
+        <div>
+          <button onclick="calculate()">Calculate</button>
+      </div>
+      <div >
+        <table id="target">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Investment Value</th>
+              <th>Total contributions</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        <table>
+      </div>
+
+    <script>
+      function calculate() {
+        const initialInvestment = parseInt(document.querySelector('#initial').value);
+        const monthlySavings = parseInt(document.querySelector('#monthlySavings').value);
+        const investmentTime = parseInt(document.querySelector('#years').value);
+        let interest = parseInt(document.querySelector('#interest').value);
+        interest = 1 + interest/100;
+
+        let sumInvestmentValue = initialInvestment;
+        let sumSavingsValue = initialInvestment;
+        let initialYear = (new Date()).getFullYear();
+
+        const tbodyElement = document.querySelector('table#target > tbody');
+
+        // clear all existing rows
+        while (tbodyElement.firstChild) {
+          tbodyElement.removeChild(tbodyElement.firstChild);
+        }
+
+        // create new rows
+        for(let i=0; i<investmentTime; i++) {
+          let row = document.createElement('tr');
+          let yearElement = document.createElement('td');
+          let investmentElement = document.createElement('td');
+          let contributionElement = document.createElement('td');
+
+          yearElement.append(initialYear+i);
+          sumSavingsValue += monthlySavings*12;
+          contributionElement.append(sumSavingsValue.toFixed(2))
+
+          sumInvestmentValue = (sumInvestmentValue + 12*monthlySavings) * interest;
+          investmentElement.append(sumInvestmentValue.toFixed(2));
+
+          row.appendChild(yearElement);
+          row.appendChild(investmentElement);
+          row.appendChild(contributionElement);
+
+          tbodyElement.appendChild(row);
+        }
+      }
+    </script>
+  </body>
+</html>
