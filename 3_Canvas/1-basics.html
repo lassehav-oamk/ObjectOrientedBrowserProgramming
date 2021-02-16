@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body { margin: 0 }
+    </style>
+  </head>
+  <body>
+    <canvas id="target"></canvas>
+    <script>
+      const canvas = document.getElementById("target");
+      const context = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      context.moveTo(210,400);
+      context.lineTo(200,200);
+      context.stroke();
+
+      let speed = 5;
+      let ballX = 300;
+      let ballY = 300;
+
+      let speed2 = 5;
+      let ball2X = 100;
+      let ball2Y = 300;
+
+      class Ball {
+        constructor(startX, startY, speed) {
+          this.x = startX;
+          this.y = startY;
+          this.speed = speed;
+        }
+
+        update() {
+          if((this.y >= canvas.height) || this.y <= 0) {
+            this.speed = -this.speed;
+          }
+          this.y = this.y + this.speed;
+        }
+
+        draw() {
+          context.beginPath();
+          context.arc(this.x, this.y, 30, 0, 2 * Math.PI);
+          context.fillStyle = "red";
+          context.fill();
+        }
+      }
+
+      const ballStorage = [];
+      for(let i = 0; i < 8; i++) {
+        ballStorage.push(new Ball(i*30, 10, i*5));
+      }
+
+      function updateScreen() {
+          // clear the canvas
+          context.clearRect(0,0,canvas.width,canvas.height);
+
+          for(let i = 0; i < ballStorage.length; i++) {
+            ballStorage[i].update();
+            ballStorage[i].draw();
+          }
+
+          window.requestAnimationFrame(updateScreen);
+      }
+      window.requestAnimationFrame(updateScreen);
+    </script>
+  </body>
+</html>
