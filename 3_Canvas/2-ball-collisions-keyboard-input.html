@@ -11,8 +11,8 @@
       const canvas = document.getElementById("target");
       const context = canvas.getContext("2d");
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = 672;
+      canvas.height = 744;
 
       class Ball {
         constructor(startX, startY, speedX, speedY) {
@@ -47,8 +47,50 @@
         }
       }
 
+      class Player {
+        constructor(x, y, movementSpeedX, movementSpeedY) {
+          this.x = x;
+          this.y = y;
+          this.movementSpeedX = movementSpeedX;
+          this.movementSpeedY = movementSpeedY;
+        }
+
+        moveUp() {
+          // when key up arrow is pressed,
+          // then decrease y coordinate by the amout of movementSpeedY value
+          this.y = this.y - this.movementSpeedY;
+        }
+
+        moveDown() {
+          this.y = this.y + this.movementSpeedY;
+        }
+
+        moveLeft() {
+          this.x = this.x - this.movementSpeedX;
+        }
+
+        moveRight() {
+          this.x = this.x + this.movementSpeedX;
+        }
+
+        update() {
+
+        }
+
+        draw() {
+          context.beginPath();
+          context.rect(this.x, this.y, 50, 50);
+          context.fillStyle = 'green';
+          context.fill();
+          context.lineWidth = 1;
+          context.strokeStyle = 'green';
+          context.stroke();
+        }
+      }
+
+      const player = new Player(288, 300, 48, 48);
       const ballStorage = [];
-      for(let i = 0; i < 50; i++) {
+      for(let i = 0; i < 5; i++) {
         ballStorage.push(
           new Ball(Math.random() * canvas.width, // x coord
                    Math.random() * canvas.height, // y coord
@@ -57,7 +99,6 @@
         );
       }
 
-      let car1 = new Car();
 
       function updateScreen() {
           // clear the canvas
@@ -67,10 +108,33 @@
             ballStorage[i].update();
             ballStorage[i].draw();
           }
+          player.update();
+          player.draw();
 
           window.requestAnimationFrame(updateScreen);
       }
       window.requestAnimationFrame(updateScreen);
+
+      window.addEventListener('keydown', function(event){
+        switch(event.keyCode) {
+          case 37:
+            console.log('LEFT!');
+            player.moveLeft();
+            break;
+          case 38:
+            console.log('UP!');
+            player.moveUp();
+            break;
+          case 39:
+            console.log('RIGHT!');
+            player.moveRight();
+            break;
+          case 40:
+            console.log('DOWN!');
+            player.moveDown();
+            break;
+        }
+      });
     </script>
   </body>
 </html>
