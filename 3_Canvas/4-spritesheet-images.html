@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body { margin: 0 }
+    </style>
+  </head>
+  <body>
+    <canvas id="target"></canvas>
+    <script>
+      const canvas = document.getElementById("target");
+      const context = canvas.getContext("2d");
+
+      canvas.width = 672;
+      canvas.height = 744;
+
+      class GameObject {
+        constructor(startX, startY, width, height, speedX, speedY) {
+          this.x = startX;
+          this.y = startY;
+          this.width = width;
+          this.height = height;
+          this.speedX = speedX;
+          this.speedY = speedY;
+        }
+
+        update() {
+          if((this.y >= canvas.height) || (this.y <= 0)) {
+            this.speedY = -this.speedY;
+          }
+          if(this.x >= canvas.width || (this.x <= 0)) {
+            this.speedX = -this.speedX;
+          }
+          this.y = this.y + this.speedY;
+          this.x = this.x + this.speedX;
+        }
+
+        draw() {
+          console.log('Draw not implemented');
+        }
+      }
+
+      class Ball extends GameObject {
+        constructor(startX, startY, width, height, speedX, speedY) {
+          super(startX, startY, width, height, speedX, speedY);
+          this.radius = Math.random() * 50;
+          this.color = {
+            red: Math.random() * 255,
+            green: Math.random() * 255,
+            blue: Math.random() * 255
+          };
+        }
+
+        draw() {
+          context.beginPath();
+          context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+          context.fillStyle = `rgb(${this.color.red}, ${this.color.green}, ${this.color.blue})`;
+          context.fill();
+        }
+      }
+
+      class Player extends GameObject {
+        moveUp() {
+          // when key up arrow is pressed,
+          // then decrease y coordinate by the amout of movementSpeedY value
+          this.y = this.y - this.speedY;
+          this.frameCounter = 0;
+        }
+
+        moveDown() {
+          this.y = this.y + this.speedY;
+        }
+
+        moveLeft() {
+          this.x = this.x - this.speedX;
+        }
+
+        moveRight() {
+          this.x = this.x + this.speedX;
+        }
+
+        update() {
+
+        }
+
+        draw() {
+          context.drawImage(froggerSheet, 3, 3, 48, 48, this.x, this.y, this.width, this.height);
+        }
+      }
+
+      class Rectangle extends GameObject {
+        update() {
+          // collision check, does this collide with player
+          if(((this.x + this.width) > player.x) &&
+             (this.x < (player.x + player.width)) &&
+             ((this.y + this.height) > player.y) &&
+             (this.y < (player.y + player.height))) {
+            console.log('Hit');
+          }
+        }
+
+        draw() {
+          context.beginPath();
+          context.rect(this.x, this.y, this.width, this.height);
+          context.fillStyle = 'red';
+          context.fill();
+          context.lineWidth = 1;
+          context.strokeStyle = 'red';
+          context.stroke();
+        }
+      }
+
+      const player = new Player(288, 300, 48, 48, 50, 50);
+      const rectangle = new Rectangle(100, 100, 200, 50, 0, 0);
+      const gameObjectStorage = [];
+      gameObjectStorage.push(player);
+      gameObjectStorage.push(rectangle);
+
+      function updateScreen() {
+          // clear the canvas
+          context.clearRect(0,0,canvas.width,canvas.height);
+
+          for(let i = 0; i < gameObjectStorage.length; i++) {
+            gameObjectStorage[i].update();
+            gameObjectStorage[i].draw();
+          }
+
+          window.requestAnimationFrame(updateScreen);
+      }
+
+      const froggerSheet = new Image();
+      froggerSheet.onload = () => {
+        window.requestAnimationFrame(updateScreen);
+      }
+      froggerSheet.src = 'froggerSheet.png';
+
+      window.addEventListener('keydown', function(event){
+        switch(event.keyCode) {
+          case 37:
+            player.moveLeft();
+            break;
+          case 38:
+            player.moveUp();
+            break;
+          case 39:
+            player.moveRight();
+            break;
+          case 40:
+            player.moveDown();
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>
