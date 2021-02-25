@@ -24,15 +24,15 @@
           this.speedY = speedY;
         }
 
-        update() {
+        update(deltaTime) {
           if((this.y >= canvas.height) || (this.y <= 0)) {
             this.speedY = -this.speedY;
           }
           if(this.x >= canvas.width || (this.x <= 0)) {
             this.speedX = -this.speedX;
           }
-          this.y = this.y + this.speedY;
-          this.x = this.x + this.speedX;
+          this.y = this.y + this.speedY * deltaTime / 1000;
+          this.x = this.x + this.speedX * deltaTime / 1000;
         }
 
         draw() {
@@ -60,32 +60,70 @@
       }
 
       class Player extends GameObject {
+        constructor(startX, startY, width, height, speedX, speedY) {
+          super(startX, startY, width, height, speedX, speedY);
+          this.frameCounter = 0;
+          this.animationFrames = 2;
+          this.frameTimeCounter = 0;
+          this.frameRate = 6; // per second
+          this.movementDirection = "UP";
+        }
+
         moveUp() {
           // when key up arrow is pressed,
           // then decrease y coordinate by the amout of movementSpeedY value
           this.y = this.y - this.speedY;
-          this.frameCounter = 0;
+          this.movementDirection = "UP";
         }
 
         moveDown() {
           this.y = this.y + this.speedY;
+          this.movementDirection = "DOWN";
         }
 
         moveLeft() {
           this.x = this.x - this.speedX;
+          this.movementDirection = "LEFT";
         }
 
         moveRight() {
           this.x = this.x + this.speedX;
+          this.movementDirection = "RIGHT";
         }
 
-        update() {
+        update(deltaTime) {
+          this.frameTimeCounter += deltaTime;
+          if(this.frameTimeCounter > 1000 / this.frameRate) {
+            this.frameTimeCounter = 0;
+            // next frame
+            this.frameCounter++;
 
+            // check if we are at last frame, reset to the beginning
+            if(this.frameCounter >= this.animationFrames) {
+              this.frameCounter = 0;
+            }
+          }
         }
 
         draw() {
+          let animationFrameStartCoordX = 0;
+          switch(this.movementDirection) {
+            case "UP":
+              animationFrameStartCoordX = 3;
+              break;
+            case "DOWN":
+              animationFrameStartCoordX = 219;
+              break;
+            case "LEFT":
+              animationFrameStartCoordX = 111;
+              break;
+            case "RIGHT":
+              animationFrameStartCoordX = 327;
+              break;
+          }
+
           context.drawImage(froggerSheet,
-                            3, // sx
+                            animationFrameStartCoordX + this.frameCounter * 48 + 6*this.frameCounter, // sx
                             3, // sy
                             48, // swidth
                             48, // sheight
@@ -124,12 +162,17 @@
       gameObjectStorage.push(player);
       gameObjectStorage.push(rectangle);
 
-      function updateScreen() {
+      let lastTimeStamp = 0;
+      function updateScreen(timeStamp) {
+
+          let deltaTime = timeStamp - lastTimeStamp;
+          lastTimeStamp = timeStamp;
+
           // clear the canvas
           context.clearRect(0,0,canvas.width,canvas.height);
 
           for(let i = 0; i < gameObjectStorage.length; i++) {
-            gameObjectStorage[i].update();
+            gameObjectStorage[i].update(deltaTime);
             gameObjectStorage[i].draw();
           }
 
